@@ -16,7 +16,13 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
 
     # create and configure the app
     app = flask.Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(SECRET_KEY='dev')
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        CORPUS=os.path.join(app.instance_path, 'the-ringer.mm'),
+        LDA=os.path.join(app.instance_path, 'the-ringer.lda'),
+        SIM_INDEX=os.path.join(app.instance_path, 'the-ringer.index'),
+        DATABASE=os.path.join(app.instance_path, 'the-ringer.db'),
+ )
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -38,5 +44,8 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
 
     from . import snipe
     app.register_blueprint(snipe.snipe)
+
+    from . import lda
+    lda.init_app(app)
 
     return app
