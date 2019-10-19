@@ -15,7 +15,7 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
     """
 
     # create and configure the app
-    app = flask.Flask('dochunt-lda-api', instance_relative_config=True)
+    app = flask.Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(SECRET_KEY='dev')
 
     if test_config is None:
@@ -35,5 +35,8 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
     @app.route('/')
     def welcome():
         return 'Welcome from Flask!'
+
+    from . import snipe
+    app.register_blueprint(snipe.snipe)
 
     return app
