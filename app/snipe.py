@@ -10,7 +10,7 @@ snipe = flask.Blueprint('snipe', __name__)
 @snipe.route('/snipe')
 def fire():
     if flask.request.args:
-        id_ = flask.request.args.get('id')
+        id_ = flask.request.args.get('target')
         db = lda.get_db()
         cursor = db.execute('select "index" from articles where id = ?', (id_,))
         index = cursor.fetchone()['index']
