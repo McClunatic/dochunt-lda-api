@@ -1,6 +1,7 @@
 import os
 
 import flask
+import flask_cors
 
 
 def create_app(test_config: dict = None) -> flask.app.Flask:
@@ -16,6 +17,7 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
 
     # create and configure the app
     app = flask.Flask(__name__, instance_relative_config=True)
+    flask_cors.CORS(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         CORPUS=os.path.join(app.instance_path, 'the-ringer.mm'),
