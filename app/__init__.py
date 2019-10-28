@@ -18,12 +18,13 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
     # create and configure the app
     app = flask.Flask(__name__, instance_relative_config=True)
     flask_cors.CORS(app)
+    ringer_path = os.path.abspath('../the-ringer-files')
     app.config.from_mapping(
         SECRET_KEY='dev',
-        CORPUS=os.path.join(app.instance_path, 'the-ringer.mm'),
-        LDA=os.path.join(app.instance_path, 'the-ringer.lda'),
-        SIM_INDEX=os.path.join(app.instance_path, 'the-ringer.index'),
-        DATABASE=os.path.join(app.instance_path, 'the-ringer.db'),
+        CORPUS=os.path.join(ringer_path, 'the-ringer.mm'),
+        LDA=os.path.join(ringer_path, 'the-ringer.lda'),
+        SIM_INDEX=os.path.join(ringer_path, 'the-ringer.index'),
+        DATABASE=os.path.join(ringer_path, 'the-ringer.db'),
  )
 
     if test_config is None:
