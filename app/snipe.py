@@ -20,7 +20,7 @@ def fire():
         results = sim_index[corpus[index]]
         return flask.jsonify([
             {'similarity': sim.item(),
-             **dict(db.execute('select "id", title, author, date '
+             **dict(db.execute('select "id", "href", title, author, date '
                                'from articles where "index" = ?',
                                (idx.item(),)).fetchone())}
             for (idx, sim) in results])
