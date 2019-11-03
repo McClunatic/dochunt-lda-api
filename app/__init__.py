@@ -17,7 +17,7 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
 
     # create and configure the app
     app = flask.Flask(__name__, instance_relative_config=True)
-    flask_cors.CORS(app)
+    flask_cors.CORS(app, origins="http://localhost:8081")
     ringer_path = os.path.abspath('../the-ringer-files')
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -41,7 +41,7 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
 
     # a simple page that says welcome
     @app.route('/')
-    def welcome():
+    def welcome():  # pylint: disable=unused-variable
         return 'Welcome from Flask!'
 
     from . import snipe
