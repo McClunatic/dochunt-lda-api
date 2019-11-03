@@ -10,18 +10,12 @@ snipe = flask.Blueprint('snipe', __name__)
 @snipe.route('/snipe')
 def fire():
     if flask.request.args:
-        id_ = flask.request.args.get('target')
-        db = lda.get_db()
-        cursor = db.execute('select "index" from articles where id = ?', (id_,))
-        index = cursor.fetchone()['index']
+        index = flask.request.args.get('target', type=int)
         corpus = lda.get_corpus()
         sim_index = lda.get_sim_index()
         sim_index.num_best = flask.request.args.get('num_best', 10)
         results = sim_index[corpus[index]]
         return flask.jsonify([
-            {'similarity': sim.item(),
-             **dict(db.execute('select "id", "href", title, author, date '
-                               'from articles where "index" = ?',
-                               (idx.item(),)).fetchone())}
+            {'index': idx.item(), 'similarity': sim.item()}
             for (idx, sim) in results])
     return 'Sniping...'

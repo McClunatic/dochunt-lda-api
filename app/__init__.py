@@ -24,7 +24,6 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
         CORPUS=os.path.join(ringer_path, 'the-ringer.mm'),
         LDA=os.path.join(ringer_path, 'the-ringer.lda'),
         SIM_INDEX=os.path.join(ringer_path, 'the-ringer.index'),
-        DATABASE=os.path.join(ringer_path, 'the-ringer.db'),
  )
 
     if test_config is None:
@@ -47,8 +46,5 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
 
     from . import snipe
     app.register_blueprint(snipe.snipe)
-
-    from . import lda
-    lda.init_app(app)
 
     return app

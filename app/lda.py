@@ -1,5 +1,3 @@
-import sqlite3
-
 import flask
 import gensim
 
@@ -26,25 +24,3 @@ def get_sim_index():
             flask.current_app.config['SIM_INDEX'])
 
     return flask.g.sim_index
-    
-
-def get_db():
-    if 'db' not in flask.g:
-        flask.g.db = sqlite3.connect(
-            flask.current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        flask.g.db.row_factory = sqlite3.Row
-
-    return flask.g.db
-
-
-def close_db(e=None):
-    db = flask.g.pop('db', None)
-
-    if db is not None:
-        db.close()
-        
-
-def init_app(app):
-    app.teardown_appcontext(close_db)
