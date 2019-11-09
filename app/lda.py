@@ -10,14 +10,6 @@ def get_corpus():
     return flask.g.corpus
     
 
-def get_lda():
-    if 'lda' not in flask.g:
-        flask.g.lda = gensim.models.ldamodel.LdaModel.load(
-            flask.current_app.config['LDA'])
-
-    return flask.g.lda
-
-
 def get_sim_index():
     if 'sim_index' not in flask.g:
         flask.g.sim_index = gensim.similarities.Similarity.load(
