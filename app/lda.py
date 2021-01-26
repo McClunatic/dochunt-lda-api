@@ -8,7 +8,7 @@ def get_corpus():
             flask.current_app.config['CORPUS'])
 
     return flask.g.corpus
-    
+
 
 def get_sim_index():
     if 'sim_index' not in flask.g:

@@ -1,5 +1,3 @@
-import operator
-
 import flask
 
 from . import lda

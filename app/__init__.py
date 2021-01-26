@@ -23,7 +23,7 @@ def create_app(test_config: dict = None) -> flask.app.Flask:
         SECRET_KEY='dev',
         CORPUS=os.path.join(ringer_path, 'the-ringer-2019-11-07.mm'),
         SIM_INDEX=os.path.join(ringer_path, 'the-ringer-2019-11-07.index'),
- )
+    )
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
